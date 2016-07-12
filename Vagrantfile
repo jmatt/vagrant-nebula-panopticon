@@ -15,59 +15,76 @@ require 'vagrant-openstack-provider'
 
 Vagrant.configure('2') do |config|
   config.ssh.username = 'vagrant'
+  config.vm.boot_timeout = 960
 
-  config.vm.define 'es-1' do |define|
+  config.vm.define 'p-es-1' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_es_20160421060456'
+      provider.image = 'ubuntu_pan_es_20160502045719'
       provider.flavor = 'n-rd1.large'
-      provider.server_name = "es-1-#{ENV['USER']}"
-      provider.security_groups = ['default', 'remote SSH']
+      provider.server_name = "p-es-1-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH', 'elasticsearch']
     end
   end
 
-  config.vm.define 'es-2' do |define|
+  config.vm.define 'p-es-2' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_es_20160421060456'
+      provider.image = 'ubuntu_pan_es_20160502045719'
       provider.flavor = 'n-rd1.large'
-      provider.server_name = "es-2-#{ENV['USER']}"
-      provider.security_groups = ['default', 'remote SSH']
+      provider.server_name = "p-es-2-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH',
+                                  'elasticsearch']
     end
   end
 
-  config.vm.define 'es-3' do |define|
+  config.vm.define 'p-es-3' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_es_20160421060456'
+      provider.image = 'ubuntu_pan_es_20160502045719'
       provider.flavor = 'n-rd1.large'
-      provider.server_name = "es-3-#{ENV['USER']}"
-      provider.security_groups = ['default', 'remote SSH']
+      provider.server_name = "p-es-3-#{ENV['USER']}"
+      provider.security_groups = ['panopticon_site', 'remote SSH',
+                                  'elasticsearch']
     end
   end
 
-  config.vm.define 'es-4' do |define|
+  config.vm.define 'p-es-4' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_es_20160421060456'
+      provider.image = 'ubuntu_pan_es_20160502045719'
       provider.flavor = 'n-rd1.large'
-      provider.server_name = "es-4-#{ENV['USER']}"
-      provider.security_groups = ['default', 'remote SSH']
+      provider.server_name = "p-es-4-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH',
+                                  'elasticsearch']
     end
   end
 
-  config.vm.define 'es-k' do |define|
+  config.vm.define 'p-es-k' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_es_k_20160421060937'
+      provider.image = 'ubuntu_pan_es_k_20160502055612'
       provider.flavor = 'n-rcd1.large'
-      provider.server_name = "es-k-#{ENV['USER']}"
-      provider.security_groups    = ['default', 'remote SSH',
-                                     'remote HTTP', 'remote https']
+      provider.server_name = "p-es-k-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH',
+                                  'remote HTTP', 'remote https',
+                                  'elasticsearch', 'logstash']
     end
   end
 
-  config.vm.define 'lfr' do |define|
+  config.vm.define 'p-lfr' do |define|
     define.vm.provider :openstack do |provider, override|
-      provider.image = 'ubuntu_pan_lfr_20160420000828'
+      provider.image = 'ubuntu_pan_lfr_20160502060459'
       provider.flavor = 'm4.large'
-      provider.server_name = "lfr-#{ENV['USER']}"
-      provider.security_groups = ['default', 'remote SSH']
+      provider.server_name = "p-lfr-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH',
+                                  'elasticsearch', 'logstash']
+    end
+  end
+
+  config.vm.define 'p-es-6' do |define|
+    define.vm.provider :openstack do |provider, override|
+      provider.image = 'ubuntu_pan_es_20160502045719'
+      provider.flavor = 'n-rd1.large'
+      provider.server_name = "p-es-6-#{ENV['USER']}"
+      provider.security_groups = ['default', 'panopticon_site', 'remote SSH',
+                                  'remote HTTP', 'remote https',
+                                  'elasticsearch', 'logstash']
     end
   end
 
@@ -84,6 +101,6 @@ system_info:
     os.tenant_name        = ENV['OS_PROJECT_NAME']
     os.openstack_auth_url = ENV['OS_AUTH_URL']
     os.floating_ip_pool   = 'ext-net'
-    os.networks           = ['fc77a88d-a9fb-47bb-a65d-39d1be7a7174']
+    os.networks           = ['5b8760e4-06ed-4f73-8c8d-bb1543b0bc74']
   end
 end
